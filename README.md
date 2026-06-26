@@ -214,7 +214,7 @@
 ### Model 3
  - We again applied One-Hot Encoding on all the categorical columns and applied StandardScaler inorder to sent them through the 3rd logistic regression pipeline, where we have l1 regression with C(0.01, 1) and threshold(0.1, 1) optimized using optuna (f1_score maximized). We obtained the following:
  
-   |  | precision | recall | f1-score | support |
+|   | precision | recall | f1-score | support |
 | :--- | :--- | :--- | :--- | :--- |
 | 0 | 0.89 | 0.83 | 0.86 | 5174 |
 | 1 | 0.60 | 0.71 | 0.65 | 1869 |
