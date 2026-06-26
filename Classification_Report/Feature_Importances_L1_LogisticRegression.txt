@@ -1,0 +1,29 @@
+Gender_Male:	| -0.0026462748018200133
+Senior Citizen_Yes:	| 0.03575711428035266
+Partner_Yes:	| 0.10125469552383308
+Dependents_Yes:	| -0.5712934856801937
+Phone Service_Yes:	| -0.054548303020925656
+Multiple Lines_No phone service:	| 0.04321674517140039
+Multiple Lines_Yes:	| 0.1505271267272631
+Internet Service_Fiber optic:	| 0.3888321613180771
+Internet Service_No:	| -0.017418331680868628
+Online Security_No internet service:	| -7.52075501915996e-05
+Online Security_Yes:	| -0.15325137362935046
+Online Backup_No internet service:	| 0.0
+Online Backup_Yes:	| -0.009196341892987969
+Device Protection_No internet service:	| 0.0
+Device Protection_Yes:	| 0.00868039617748974
+Tech Support_No internet service:	| -0.0804218090827192
+Tech Support_Yes:	| -0.1317510561140903
+Streaming TV_No internet service:	| -0.09791431222106445
+Streaming TV_Yes:	| 0.12082609960504687
+Streaming Movies_No internet service:	| -0.12608240348191982
+Streaming Movies_Yes:	| 0.09275932490335326
+Contract_One year:	| -0.23267921574232217
+Contract_Two year:	| -0.5208064806420434
+Paperless Billing_Yes:	| 0.17682456157864843
+Payment Method_Credit card (automatic):	| -0.041647513968013215
+Payment Method_Electronic check:	| 0.14896738201064014
+Payment Method_Mailed check:	| 0.0
+Tenure Months:	| -0.8764535764494835
+Monthly Charges:	| 0.0
