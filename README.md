@@ -1,2 +1,7 @@
-# Customer-Churn-Prediction
-This project aims to minimise business loss rather than maximising accuracy, hence we use precision, recall, f1_scores in order to achieve this. The models used are RandomForest and Logistic Regression, optimized by hyperparameter tuning using Optuna. This benefits stakeholders to make important decisions.
+# Customer Churn Prediction
+> This project aims to minimise financial losses associated with customer search. Instead of plainly focusing on maximizing the accuracy of our model, we focus on other metrics such as precision and recall.
+> Our dataset consists of over 7000 rows and 33 columns of data.
+> Kaggle link: https://www.kaggle.com/datasets/yeanzc/telco-customer-churn-ibm-dataset
+
+## Data Insights
+- 
