@@ -31,9 +31,7 @@
  ![ROC Curve](plots/roc_curve_noncv.png)
  #### PR Curve
  ![PR Curve](plots/pr_curve_noncv.png)
- <details>
-  <summary>View Detailed Classification Report</summary>
-
+ 
   ```text
                 precision    recall  f1-score   support
 
@@ -49,6 +47,28 @@
   Confusion_Matrix: [[901 108]
                      [170 230]]
 ```
+
+- Cross Validation using StratifiedKFold helps the model to train and test on the entire dataset, smoothening out both the curves and giving us a clearer idea of metrics.
+ #### ROC Curve
+ ![ROC Curve](plots/roc_curve_cv1.png)
+ #### PR Curve
+ ![PR Curve](plots/pr_cv1.png)
+  ```text
+                precision   recall  f1-score   support
+
+           0       0.85      0.90      0.87      5174
+           1       0.66      0.57      0.61      1869
+
+    accuracy                           0.81      7043
+   macro avg       0.76      0.73      0.74      7043
+weighted avg       0.80      0.81      0.80      7043
+
+Accuracy_Score: 0.8086042879454778
+ROC_AUC_Score: 0.7318285153387631
+Confusion_Matrix: [[4633  541]
+                    [807 1062]]
+  ```
+
 - Our dataset is imbalanced, the number of rows with label 0 is 2.5 times the number of rows with label 1. The model will be biased towards the majority, which is 0 making accuracy a less reliable, since a dumb model which declares everything as 0 will have an accuracy above 70%.
 - Precision of 0 = Out of all declared 0, how many are actually 0
 - Precision of 1 = Out of all declared 1, how many are actually 1
@@ -62,4 +82,107 @@
 - 170 people wo were churning are predicted to stay - they will leave without us paying attention (Lose money as no incentives given)
 - 230 people wo were churning predicted to churn - more attention to retain them (Might lower the will of people to leave)
 
-- Our goal is to reduce the people who are actually churning but are predicted to stay as the cost is mostly higher in that case. In order to do that we must reduce the probability threshold to a minimum. If that happens everything will be predicted to churn, which means the increase in the number of false positives drastically(precision 0 drops) and over incentivization, which will cause greater loss. We have to find an equilibrium spot. In this case, we use f1_score, which is the harmonic mean of precision and recall. f1_score will result low if either of the value is low.
+- Our goal is to reduce the people who are actually churning but are predicted to stay as the cost is mostly higher in that case. In order to do that we must reduce the probability threshold to a minimum. If that happens everything will be predicted to churn, which means the increase in the number of false positives drastically(precision 0 drops) and over incentivization, which will cause greater loss. We have to find an equilibrium spot. In this case, we use f1_score, which is the harmonic mean of precision and recall. f1_score will result low if either of the value is low. Maximising it helps us find an equilibrium. 
+
+-We calculate the threshold to be 36.81%. Finding predictions based on this results in:
+  ```text
+                precision    recall  f1-score   support
+
+           0       0.89      0.83      0.86      5174
+           1       0.60      0.71      0.65      1869
+
+    accuracy                           0.79      7043
+   macro avg       0.74      0.77      0.75      7043
+weighted avg       0.81      0.79      0.80      7043
+
+Accuracy_Score: 0.7949737327843248
+ROC_AUC_Score: 0.7680069586935376
+Confusion_Matrix: [[4271  903]
+                   [ 541 1328]]
+  ```
+
+- We have a much better recall score for 1, meaning that out of actual churners, we were able to get 71% of them compared to 57% earlier.
+
+### Model 2
+ - We again applied One-Hot Encoding on all the categorical columns and applied StandardScaler inorder to sent them through the 1st logistic regression pipeline, but we have l1 regression with C = 0.1 for feature selection and outlier handling. We obtained the following:
+ #### ROC Curve
+ ![ROC Curve](plots/roc_curve_l1_cv.png)
+ #### PR Curve
+ ![PR Curve](plots/pr_l1_cv.png)
+ 
+  ```text
+                precision    recall  f1-score   support
+
+           0       0.85      0.90      0.87      5174
+           1       0.67      0.57      0.61      1869
+
+    accuracy                           0.81      7043
+   macro avg       0.76      0.73      0.74      7043
+weighted avg       0.80      0.81      0.80      7043
+
+Accuracy_Score: 0.8093142126934545
+ROC_AUC_Score: 0.7316281576628253
+Confusion_Matrix: [[4642  532]
+                   [ 811 1058]]
+```
+
+- Again we max our f1_score and get threshold as 32.58%:
+  
+```text
+                 precision    recall  f1-score   support
+
+           0       0.90      0.79      0.84      5174
+           1       0.57      0.75      0.65      1869
+
+    accuracy                           0.78      7043
+   macro avg       0.73      0.77      0.74      7043
+weighted avg       0.81      0.78      0.79      7043
+
+Accuracy_Score: 0.7812011926735766
+ROC_AUC_Score: 0.771449594765613
+Confusion_Matrix: [[4099 1075]
+                   [ 466 1403]]
+                   
+```
+
+-The recall for 1 is even better now.
+
+### Model 3
+ - We again applied One-Hot Encoding on all the categorical columns and applied StandardScaler inorder to sent them through the 1st logistic regression pipeline, but we have l1 regression with C(0.01, 1) and threshold(0.1, 1) optimized using optuna. We obtained the following:
+ 
+  ```text
+                precision    recall  f1-score   support
+
+           0       0.85      0.90      0.87      5174
+           1       0.67      0.57      0.61      1869
+
+    accuracy                           0.81      7043
+   macro avg       0.76      0.73      0.74      7043
+weighted avg       0.80      0.81      0.80      7043
+
+Accuracy_Score: 0.8093142126934545
+ROC_AUC_Score: 0.7316281576628253
+Confusion_Matrix: [[4642  532]
+                   [ 811 1058]]
+```
+
+- Again we max our f1_score and get threshold as 32.58%:
+  
+```text
+                 precision    recall  f1-score   support
+
+           0       0.90      0.79      0.84      5174
+           1       0.57      0.75      0.65      1869
+
+    accuracy                           0.78      7043
+   macro avg       0.73      0.77      0.74      7043
+weighted avg       0.81      0.78      0.79      7043
+
+Accuracy_Score: 0.7812011926735766
+ROC_AUC_Score: 0.771449594765613
+Confusion_Matrix: [[4099 1075]
+                   [ 466 1403]]
+                   
+```
+
+-The recall for 1 is even better now.
