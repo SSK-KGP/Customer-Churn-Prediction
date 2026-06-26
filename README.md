@@ -1,5 +1,5 @@
 # Customer Churn Prediction
->- This project aims to minimise financial losses associated with customer search. Instead of plainly focusing on maximizing the accuracy of our model, we focus on other metrics such as precision and recall.
+>- This project utilizes an IBM Telco dataset to predict customer attrition. By optimizing for F1-score rather than simple accuracy, we developed a model that identifies 75% of churners while maintaining high operational efficiency.
 >- Our dataset consists of over 7000 rows and 33 columns of data. It is based in the U.S. state of California.
 >- Kaggle link: https://www.kaggle.com/datasets/yeanzc/telco-customer-churn-ibm-dataset
 
@@ -281,4 +281,20 @@
 ## SHAP Analysis
 -We have used SHapely Additive exPlainations to analyze why the model has predicted what it has predicted.
 -Firstly we see what the important features are
-![ROC Curve](plots/shap_summary_plot_Random Forest.png.png)
+![Feature Importance](plots/shap_summary_plot_Random Forest.png)
+-The above plot gives us the importance. It tells us that 'Tenure Months' contributes a lot, but not the direction.
+-Below is the beeswarm plot which gives us the direction.
+![Feature Direction and Importance](plots/shap_summary_plot_beeswarm_Random Forest.png)
+-The bar on the right suggesting a spectrum of values between low and high depict how high or low the value of the feature is (not weight!). The direction of the feature is dominated towards the colour denoting high. Here, it clearly tells us that a higher value of Tenure Months is in the negative direction, which means that a higher value will lean more towards the negative output, it being not churned. This proves our earlier analysis talking about how people who have been for longer are most likely to not leave.
+-We can also analyze the 1st input, and how the model predicts it using a waterfall plot.
+![Waterfall Plot](plots/first_case_explaination.png)
+
+## Technical Stack
+-Language: Python
+-Modeling: Random Forest, Scikit-Learn Pipelines
+-Optimization: Optuna (for hyperparameter tuning)
+-Explainability: SHAP (SHapley Additive exPlanations)
+-Environment: Google Colab, GitHub
+
+## Author
+-Built as a portfolio project for Data Science / ML roles.
